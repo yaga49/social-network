@@ -10,23 +10,4 @@
 
 }
 
-.header {
-  grid-area: header;
-  background: #ef57ef;
-}
-.sidebar {
-  grid-area: nav;
-  background: #5332e2;
-}
-.content {
-  grid-area: content;
-  background: aqua;
-}
-.content img{
-  display: block;
-  max-width:70%;
 
-  width: auto;
-  height: auto;
-
-}
