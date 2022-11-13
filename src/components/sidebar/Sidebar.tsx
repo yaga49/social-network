@@ -5,7 +5,7 @@ import s from './Sidebar.module.css'
 export function Sidebar() {
     return(
         <nav className={s.sidebar}>
-            <div>
+            <div className={`${s.item} ${s.active}`}>
                 <a>profile</a>
             </div>
             <div>

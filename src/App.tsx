@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
-import {Header} from "./components/Header";
-import {Sidebar} from "./components/Sidebar";
-import {Profile} from "./components/Profile";
+import {Header} from "./components/header/Header";
+import {Sidebar} from "./components/sidebar/Sidebar";
+import {Profile} from "./components/profile/Profile";
 
 
 
