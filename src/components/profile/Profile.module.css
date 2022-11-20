@@ -1,7 +1,4 @@
-.content {
-    grid-area: content;
-    background: aqua;
-}
+
 .content img{
     display: block;
     max-width:70%;

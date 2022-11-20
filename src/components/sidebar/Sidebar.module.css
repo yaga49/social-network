@@ -1,8 +1,19 @@
 .sidebar {
     grid-area: nav;
     background: #5332e2;
-}
+    padding: 20px;
 
-.item.active{
-    color: red;
+}
+.item {
+
+   /* color: #00cc14;*/
+}
+a {
+    text-decoration: none;
+    color: #00cc14;
+}
+.active {
+
+
+    color: black;
 }

@@ -10,4 +10,8 @@
 
 }
 
+.content-wrapper {
+   grid-area: content;
+   background: aqua;
+ }
 
