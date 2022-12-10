@@ -1,8 +1,20 @@
 import React from 'react';
 import profile from './Profile.module.css'
-import {Post} from "./post/Post";
+import {MessagesType, Post} from "./post/Post";
 
-export function Profile() {
+
+
+export type MessagesPropsType = {
+    messagePost: Array<MessagesType>
+}
+
+
+
+
+
+export function Profile(props: MessagesPropsType) {
+    const messagesElements = props.messagePost.map(e=><Post messagePost = {e.messages}/>)
+
     return (
         <div className={profile.content}>
             <div>
@@ -12,8 +24,7 @@ export function Profile() {
                 <textarea>MyPost</textarea>
                 <button>add</button>
             </div>
-            <Post messagePost = {"About text"}/>
-            <Post messagePost ={"first post"}/>
+            {messagesElements}
 
 
         </div>

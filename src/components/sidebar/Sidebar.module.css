@@ -8,12 +8,11 @@
 
    /* color: #00cc14;*/
 }
-a {
+.item a {
     text-decoration: none;
-    color: #00cc14;
+    color: #751274;
 }
-.active {
-
+.item .active{
 
     color: black;
 }
