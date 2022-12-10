@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {state} from "./redux/state";
+import {addPost, state} from "./redux/state";
 
 export type UserType = {
     id:string
@@ -19,8 +19,10 @@ export type MessagesUsersType ={
 ReactDOM.render(
 
     <App
-        messagePost={state.dialogPage.messages}
-        users={state.profilePage.users}
-        messagesUsers={state.dialogPage.messagesUsers}/>,
+        messagePost={state.profilePage.messages}
+        users={state.dialogPage.users}
+        messagesUsers={state.dialogPage.messagesUsers}
+        addPost={addPost}
+    />,
   document.getElementById('root')
 );
