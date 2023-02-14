@@ -1,7 +1,7 @@
 import React, {RefObject} from 'react';
 import profile from './Profile.module.css'
 import {MessagesType, Post} from "./post/Post";
-import {updateNewPostText} from "../../redux/state";
+
 
 
 

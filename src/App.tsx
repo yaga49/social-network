@@ -7,7 +7,7 @@ import {Dialogs} from "./components/dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {MessagesType} from "./components/profile/post/Post";
 import {MessagesUsersType, UserType} from "./index";
-import {addPost, StateType, updateNewPostText} from "./redux/state";
+import {StateType, store} from "./redux/state";
 
 export type PropsType = {
     // messagePost: Array<MessagesType>
