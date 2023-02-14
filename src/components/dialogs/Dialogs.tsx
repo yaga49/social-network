@@ -2,6 +2,8 @@ import React from "react";
 import s from "./Dialogs.module.css"
 import {NavLink} from "react-router-dom";
 import {PropsType} from "../../App";
+import {MessagesType} from "../profile/post/Post";
+import {MessagesUsersType, UserType} from "../../index";
 
 export type DialogsItemType = {
     id: string
@@ -9,6 +11,13 @@ export type DialogsItemType = {
 }
 type MessageCompType = {
     messages: string
+}
+type DialogPropsType={
+    messagePost: Array<MessagesType>
+    users: UserType[]
+    messagesUsers: MessagesUsersType[]
+    addPost: (PostMessage: string)=>void
+
 }
 
 
@@ -31,7 +40,7 @@ const MessageComp = (props: MessageCompType) => {
     )
 }
 
-export function Dialogs(props: PropsType) {
+export function Dialogs(props: DialogPropsType) {
     const messagesElements = props.messagesUsers.map(e=> <DialogsItem id={e.id} name={e.messages}/>)
 
     const usersElements = props.users.map(e=> <DialogsItem id={e.id} name={e.name}/>)

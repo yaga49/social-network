@@ -2,7 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {addPost, state} from "./redux/state";
+import {addPost, state, StateType, subscribe, updateNewPostText} from "./redux/state";
+import './index.css';
+import {MessagesType} from "./components/profile/post/Post";
+
 
 export type UserType = {
     id:string
@@ -15,14 +18,15 @@ export type MessagesUsersType ={
 
 
 
+const rerenderEntireTree = () => {
 
-ReactDOM.render(
 
-    <App
-        messagePost={state.profilePage.messages}
-        users={state.dialogPage.users}
-        messagesUsers={state.dialogPage.messagesUsers}
-        addPost={addPost}
-    />,
-  document.getElementById('root')
-);
+    ReactDOM.render(
+        <App
+            state={state} addPost={addPost} updateNewPostText={updateNewPostText}
+        />,
+        document.getElementById('root')
+    );
+}
+rerenderEntireTree()
+subscribe(rerenderEntireTree)

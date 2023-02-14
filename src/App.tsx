@@ -7,13 +7,15 @@ import {Dialogs} from "./components/dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {MessagesType} from "./components/profile/post/Post";
 import {MessagesUsersType, UserType} from "./index";
-import {addPost} from "./redux/state";
+import {addPost, StateType, updateNewPostText} from "./redux/state";
 
 export type PropsType = {
-    messagePost: Array<MessagesType>
-    users: UserType[]
-    messagesUsers: MessagesUsersType[]
+    // messagePost: Array<MessagesType>
+    // users: UserType[]
+    // messagesUsers: MessagesUsersType[]
     addPost: (PostMessage: string)=>void
+    state: StateType
+    updateNewPostText: (newText: string)=> void
 }
 
 
@@ -27,14 +29,16 @@ function App(props: PropsType) {
                 <Sidebar/>
                 <div className={"content-wrapper"}>
                     <Route path="/profile" render={() => <Profile
-                        messagePost={props.messagePost}
+                        messagePost={props.state.profilePage.messages}
                         addPost={props.addPost}
+                        newPostText = {props.state.profilePage.newPostText}
+                        updateNewPostText = {props.updateNewPostText}
                     />}/>
                     <Route path="/dialogs" render={() =>
                         <Dialogs
-                            messagePost={props.messagePost}
-                            users={props.users}
-                            messagesUsers={props.messagesUsers}
+                            messagePost={props.state.dialogPage.messagesUsers}
+                            users={props.state.dialogPage.users}
+                            messagesUsers={props.state.dialogPage.messagesUsers}
                             addPost={props.addPost}
                         />}/>
 
