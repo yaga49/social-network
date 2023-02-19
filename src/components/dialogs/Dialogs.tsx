@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 import {PropsType} from "../../App";
 import {MessagesType} from "../profile/post/Post";
 import {MessagesUsersType, UserType} from "../../index";
+import {AddPostActionType, UpdateNewTextActionType} from "../../redux/state";
 
 export type DialogsItemType = {
     id: string
@@ -16,8 +17,8 @@ type DialogPropsType={
     messagePost: Array<MessagesType>
     users: UserType[]
     messagesUsers: MessagesUsersType[]
-    addPost: (PostMessage: string)=>void
-
+    // addPost: (PostMessage: string)=>void
+    dispatch: (action: AddPostActionType | UpdateNewTextActionType)=>void
 }
 
 
