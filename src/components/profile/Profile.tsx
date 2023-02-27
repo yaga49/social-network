@@ -1,7 +1,7 @@
 import React, {RefObject} from 'react';
 import profile from './Profile.module.css'
 import {MessagesType, Post} from "./post/Post";
-import {AddPostActionType, UpdateNewTextActionType} from "../../redux/state";
+import {addPostAC, AddPostActionType, updateNewPostTextCreator, UpdateNewTextActionType} from "../../redux/state";
 
 
 export type MessagesPropsType = {
@@ -20,12 +20,15 @@ export function Profile(props: MessagesPropsType) {
 
     const addPost = () => {
         // props.addPost(newPostRef.current ? newPostRef.current.value : "----")
-        props.dispatch({type: "ADD-POST", PostMessage: newPostRef.current ? newPostRef.current.value : "----"})
+        // props.dispatch({type: "ADD-POST", PostMessage: newPostRef.current ? newPostRef.current.value : "----"})
+        let action = addPostAC(newPostRef.current ? newPostRef.current.value : "----")
+        props.dispatch(action)
     }
 
     const onPostChange = () => {
         // props.updateNewPostText(newPostRef.current ? newPostRef.current.value : "----")
-        props.dispatch({type: "UPDATE-NEW-POST-TEXT", newText: newPostRef.current ? newPostRef.current.value : "----"})
+        let action = updateNewPostTextCreator(newPostRef.current ? newPostRef.current.value : "----")
+        props.dispatch(action)
     }
     return (
         <div className={profile.content}>

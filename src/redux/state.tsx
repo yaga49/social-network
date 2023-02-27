@@ -7,6 +7,7 @@ export type UsersType = {
 export type dialogPageType = {
     users: UsersType[]
     messagesUsers: MessageType[]
+    newMessageBody: string
 }
 
 export type MessageType = {
@@ -23,6 +24,8 @@ export type ProfilePageType = {
 export type StateType = {
     profilePage: ProfilePageType
     dialogPage: dialogPageType
+
+
 }
 
 export type StoreType = {
@@ -32,17 +35,15 @@ export type StoreType = {
     // addPost: (PostMessage: string)=>void
     // updateNewPostText: (newText: string)=>void
     subscribe: (observer: () => void)=>void
-    dispatch: (action: AddPostActionType | UpdateNewTextActionType)=>void
+    dispatch: (action: ActionsType)=>void
 }
 
-export type AddPostActionType = {
-    type: "ADD-POST"
-    PostMessage: string
-}
-export type UpdateNewTextActionType = {
-    type: "UPDATE-NEW-POST-TEXT"
-    newText: string
-}
+export type ActionsType = AddPostActionType | UpdateNewTextActionType | UpdateNewMessageBody | sendMessageCreatorType
+
+export type AddPostActionType = ReturnType<typeof addPostAC>
+export type UpdateNewMessageBody = ReturnType<typeof updateNewMessageBodyCreator>
+export type UpdateNewTextActionType = ReturnType<typeof updateNewPostTextCreator>
+export type sendMessageCreatorType = ReturnType<typeof sendMessageCreator>
 
 export const store: StoreType = {
     _state: {
@@ -64,8 +65,10 @@ export const store: StoreType = {
                 {id: "1", messages: "about_1"},
                 {id: "2", messages: "about_1"},
                 {id: "3", messages: "about_1"}
-            ]
-        }
+            ],
+            newMessageBody : ""
+        },
+
     },
     _onChange ()  {
 
@@ -101,9 +104,43 @@ export const store: StoreType = {
         } else if(action.type === "UPDATE-NEW-POST-TEXT"){
             this._state.profilePage.newPostText = action.newText
             this._onChange()
+        } else if(action.type === "UPDATE-NEW-MESSAGE-BODY"){
+            this._state.dialogPage.newMessageBody = action.body
+            this._onChange()
+        }else if(action.type === "SEND-MESSAGE"){
+            let body = this._state.dialogPage.newMessageBody
+            this._state.dialogPage.newMessageBody = " "
+            this._state.dialogPage.messagesUsers.push({id: "4", messages: action.body})
+            this._onChange()
         }
     }
 }
 
+
+export const updateNewPostTextCreator = (text: string)  => {
+  return {
+      type: "UPDATE-NEW-POST-TEXT",
+      newText: text
+  } as const
+}
+
+export const addPostAC = (text: string)  => {
+    return {
+        type: "ADD-POST",
+        PostMessage: text
+    } as const
+}
+export const sendMessageCreator = (text: string)  => {
+    return {
+        type: "SEND-MESSAGE",
+        body: text
+    } as const
+}
+export const updateNewMessageBodyCreator = (text: string)  => {
+    return {
+        type: "UPDATE-NEW-MESSAGE-BODY",
+        body: text
+    } as const
+}
 
 

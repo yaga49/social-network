@@ -1,10 +1,16 @@
-import React from "react";
+import React, {FormEvent} from "react";
 import s from "./Dialogs.module.css"
 import {NavLink} from "react-router-dom";
 import {PropsType} from "../../App";
 import {MessagesType} from "../profile/post/Post";
 import {MessagesUsersType, UserType} from "../../index";
-import {AddPostActionType, UpdateNewTextActionType} from "../../redux/state";
+import {
+    ActionsType,
+    AddPostActionType,
+    sendMessageCreator,
+    updateNewMessageBodyCreator,
+    UpdateNewTextActionType
+} from "../../redux/state";
 
 export type DialogsItemType = {
     id: string
@@ -13,14 +19,14 @@ export type DialogsItemType = {
 type MessageCompType = {
     messages: string
 }
-type DialogPropsType={
+type DialogPropsType = {
     messagePost: Array<MessagesType>
     users: UserType[]
     messagesUsers: MessagesUsersType[]
     // addPost: (PostMessage: string)=>void
-    dispatch: (action: AddPostActionType | UpdateNewTextActionType)=>void
+    dispatch: (action: ActionsType) => void
+    newMessageBody: string
 }
-
 
 
 const DialogsItem = (props: DialogsItemType) => {
@@ -33,25 +39,30 @@ const DialogsItem = (props: DialogsItemType) => {
     )
 }
 
-const MessageComp = (props: MessageCompType) => {
-    return (
-        <div>
-            {props.messages}
-        </div>
-    )
-}
 
 export function Dialogs(props: DialogPropsType) {
-    const messagesElements = props.messagesUsers.map(e=> <DialogsItem id={e.id} name={e.messages}/>)
+    const messagesElements = props.messagesUsers.map(e => <DialogsItem id={e.id} name={e.messages}/>)
 
-    const usersElements = props.users.map(e=> <DialogsItem id={e.id} name={e.name}/>)
+    const usersElements = props.users.map(e => <DialogsItem id={e.id} name={e.name}/>)
+
+    const newMessageBody = props.newMessageBody
 
     let textMessage = React.createRef<HTMLTextAreaElement>()
 
     const addMessage = () => {
-      let text = textMessage.current?.value
-        alert(text)
+        let text = textMessage.current?.value
+        let action = sendMessageCreator(textMessage.current ? textMessage.current.value : "----")
+        props.dispatch(action)
+
     }
+    const onNewMessageChange = (e: FormEvent<HTMLButtonElement>) => {
+        let text = textMessage.current ? textMessage.current.value : "----"
+
+        let action = updateNewMessageBodyCreator(text)
+        props.dispatch(action)
+
+    }
+
 
     return (
         <div className={s.dialogs}>
@@ -64,7 +75,13 @@ export function Dialogs(props: DialogPropsType) {
                 {messagesElements}
             </div>
             <textarea ref={textMessage}></textarea>
-            <button onClick={addMessage}>add</button>
+            <div>
+                <button onClick={addMessage}
+                        value={newMessageBody}
+                        onChange={onNewMessageChange}
+                >add</button>
+            </div>
+
         </div>
     )
 }

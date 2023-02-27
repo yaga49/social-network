@@ -7,7 +7,7 @@ import {Dialogs} from "./components/dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {MessagesType} from "./components/profile/post/Post";
 import {MessagesUsersType, UserType} from "./index";
-import {AddPostActionType, StateType, store, UpdateNewTextActionType} from "./redux/state";
+import {ActionsType, AddPostActionType, StateType, store, UpdateNewTextActionType} from "./redux/state";
 
 export type PropsType = {
     // messagePost: Array<MessagesType>
@@ -16,7 +16,7 @@ export type PropsType = {
     // addPost: (PostMessage: string)=>void
     state: StateType
     // updateNewPostText: (newText: string)=> void
-    dispatch: (action: AddPostActionType | UpdateNewTextActionType)=>void
+    dispatch: (action: ActionsType)=>void
 }
 
 
@@ -40,6 +40,7 @@ function App(props: PropsType) {
                             users={props.state.dialogPage.users}
                             messagesUsers={props.state.dialogPage.messagesUsers}
                             dispatch={props.dispatch}
+                            newMessageBody = {props.state.dialogPage.newMessageBody}
                             // addPost={props.addPost}
                         />}/>
 
