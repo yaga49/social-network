@@ -1,3 +1,6 @@
+import {profileReducer} from "./profile-reducer";
+import {dialogReducer} from "./dialog-reducer";
+
 export type UsersType = {
     id: string
     name: string
@@ -93,26 +96,8 @@ export const store: StoreType = {
         this._onChange = observer
     },
     dispatch(action){
-        if(action.type === "ADD-POST"){
-            const newPost = {
-                id: "3",
-                messages: action.PostMessage
-            }
-            this._state.profilePage.messages.push(newPost)
-            this._state.profilePage.newPostText = ""
-            this._onChange()
-        } else if(action.type === "UPDATE-NEW-POST-TEXT"){
-            this._state.profilePage.newPostText = action.newText
-            this._onChange()
-        } else if(action.type === "UPDATE-NEW-MESSAGE-BODY"){
-            this._state.dialogPage.newMessageBody = action.body
-            this._onChange()
-        }else if(action.type === "SEND-MESSAGE"){
-            let body = this._state.dialogPage.newMessageBody
-            this._state.dialogPage.newMessageBody = " "
-            this._state.dialogPage.messagesUsers.push({id: "4", messages: action.body})
-            this._onChange()
-        }
+        profileReducer(this._state.profilePage, action)
+        dialogReducer(this._state.dialogPage, action)
     }
 }
 
