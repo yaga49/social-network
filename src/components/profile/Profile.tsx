@@ -3,13 +3,21 @@ import profile from './Profile.module.css'
 import {MessagesType, Post} from "./post/Post";
 import {addPostAC, AddPostActionType, updateNewPostTextCreator, UpdateNewTextActionType} from "../../redux/state";
 
-
+//
+// export type MessagesPropsType = {
+//     messagePost: Array<MessagesType>
+//     // addPost: (PostMessage: string) => void
+//     newPostText: string
+//     // updateNewPostText: (newText: string) => void
+//     dispatch: (action: AddPostActionType | UpdateNewTextActionType) => void
+// }
 export type MessagesPropsType = {
     messagePost: Array<MessagesType>
     // addPost: (PostMessage: string) => void
     newPostText: string
     // updateNewPostText: (newText: string) => void
-    dispatch: (action: AddPostActionType | UpdateNewTextActionType) => void
+    addPostAC: (text: string)=>void
+    updateNewPostTextCreator: (text: string)=>void
 }
 
 
@@ -19,16 +27,16 @@ export function Profile(props: MessagesPropsType) {
     const newPostRef = React.createRef<HTMLTextAreaElement>()
 
     const addPost = () => {
-        // props.addPost(newPostRef.current ? newPostRef.current.value : "----")
-        // props.dispatch({type: "ADD-POST", PostMessage: newPostRef.current ? newPostRef.current.value : "----"})
-        let action = addPostAC(newPostRef.current ? newPostRef.current.value : "----")
-        props.dispatch(action)
+        let text = newPostRef.current ? newPostRef.current.value : "----"
+        let action = props.addPostAC(text)
+
     }
 
     const onPostChange = () => {
         // props.updateNewPostText(newPostRef.current ? newPostRef.current.value : "----")
-        let action = updateNewPostTextCreator(newPostRef.current ? newPostRef.current.value : "----")
-        props.dispatch(action)
+        let text = newPostRef.current ? newPostRef.current.value : "----"
+        let action = props.updateNewPostTextCreator(text)
+
     }
     return (
         <div className={profile.content}>

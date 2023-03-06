@@ -19,15 +19,22 @@ export type DialogsItemType = {
 type MessageCompType = {
     messages: string
 }
+// type DialogPropsType = {
+//     messagePost: Array<MessagesType>
+//     users: UserType[]
+//     messagesUsers: MessagesUsersType[]
+//     // addPost: (PostMessage: string)=>void
+//     dispatch: (action: ActionsType) => void
+//     newMessageBody: string
+// }
+
 type DialogPropsType = {
-    messagePost: Array<MessagesType>
-    users: UserType[]
+    sendMessageCreator: (text: string)=>void
+    updateNewMessageBodyCreator: (text: string)=>void
     messagesUsers: MessagesUsersType[]
-    // addPost: (PostMessage: string)=>void
-    dispatch: (action: ActionsType) => void
+    users: UserType[]
     newMessageBody: string
 }
-
 
 const DialogsItem = (props: DialogsItemType) => {
     let path = "/dialogs/" + props.id
@@ -50,17 +57,15 @@ export function Dialogs(props: DialogPropsType) {
     let textMessage = React.createRef<HTMLTextAreaElement>()
 
     const addMessage = () => {
-        let text = textMessage.current?.value
-        let action = sendMessageCreator(textMessage.current ? textMessage.current.value : "----")
-        props.dispatch(action)
+        let text = textMessage.current ? textMessage.current.value : "----"
+        let action = props.sendMessageCreator(text)
+
 
     }
     const onNewMessageChange = (e: FormEvent<HTMLButtonElement>) => {
         let text = textMessage.current ? textMessage.current.value : "----"
 
         let action = updateNewMessageBodyCreator(text)
-        props.dispatch(action)
-
     }
 
 
