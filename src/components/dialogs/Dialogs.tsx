@@ -1,7 +1,7 @@
 import React, {FormEvent} from "react";
 import s from "./Dialogs.module.css"
 import {NavLink} from "react-router-dom";
-import {PropsType} from "../../App";
+
 import {MessagesType} from "../profile/post/Post";
 import {MessagesUsersType, UserType} from "../../index";
 import {

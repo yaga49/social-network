@@ -7,23 +7,12 @@ import {Dialogs} from "./components/dialogs/Dialogs";
 import {BrowserRouter, Route} from "react-router-dom";
 import {MessagesType} from "./components/profile/post/Post";
 import {MessagesUsersType, UserType} from "./index";
-import {ActionsType, AddPostActionType, StateType, store, UpdateNewTextActionType} from "./redux/state";
+
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 import {ProfileContainer} from "./components/profile/post/ProfileContainer";
 
-export type PropsType = {
-    // messagePost: Array<MessagesType>
-    // users: UserType[]
-    // messagesUsers: MessagesUsersType[]
-    // addPost: (PostMessage: string)=>void
-    state: StateType
-    // updateNewPostText: (newText: string)=> void
-    dispatch: (action: ActionsType)=>void
-}
 
-
-
-function App(props: PropsType) {
+function App() {
 
     return (
         <BrowserRouter>
@@ -31,7 +20,7 @@ function App(props: PropsType) {
                 <Header/>
                 <Sidebar/>
                 <div className={"content-wrapper"}>
-                    <Route path="/profile" render={() => <ProfileContainer store={store}/>}/>
+                    <Route path="/profile" render={() => <ProfileContainer />}/>
 
 
                     <Route path="/dialogs" render={() =>
@@ -43,7 +32,7 @@ function App(props: PropsType) {
                         //     newMessageBody = {props.state.dialogPage.newMessageBody}
                         //     // addPost={props.addPost}
                         // />
-                        <DialogsContainer store={store}/>
+                        <DialogsContainer />
                         }/>
 
                 </div>
