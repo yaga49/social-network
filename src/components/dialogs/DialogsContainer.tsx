@@ -81,11 +81,11 @@ const mapStateToProps = (state: AppStateType) => {
 const mapDispatchToProps = (dispatch: (action: ActionsType)=>void ) => {
   return{
       updateNewMessageBodyCreator: (text: string)=>{
-          let action = sendMessageCreator(text)
+          let action = updateNewMessageBodyCreator(text)
           dispatch(action)
       },
       sendMessageCreator: (text: string)=>{
-          let action = updateNewMessageBodyCreator(text)
+          let action = sendMessageCreator(text)
           dispatch(action)
       }
   }

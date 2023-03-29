@@ -10,6 +10,8 @@ import {MessagesUsersType, UserType} from "./index";
 
 import {DialogsContainer} from "./components/dialogs/DialogsContainer";
 import {ProfileContainer} from "./components/profile/post/ProfileContainer";
+import {Users} from "./components/users/Users";
+import {UsersContainer} from "./components/users/UsersConainer";
 
 
 function App() {
@@ -20,7 +22,7 @@ function App() {
                 <Header/>
                 <Sidebar/>
                 <div className={"content-wrapper"}>
-                    <Route path="/profile" render={() => <ProfileContainer />}/>
+                    <Route path="/profile" render={() => <ProfileContainer/>}/>
 
 
                     <Route path="/dialogs" render={() =>
@@ -32,9 +34,9 @@ function App() {
                         //     newMessageBody = {props.state.dialogPage.newMessageBody}
                         //     // addPost={props.addPost}
                         // />
-                        <DialogsContainer />
-                        }/>
-
+                        <DialogsContainer/>
+                    }/>
+                    <Route path="/users" render={() => <UsersContainer/>}/>
                 </div>
 
             </div>

@@ -23,6 +23,20 @@ export type ProfilePageType = {
     newPostText: string
 }
 
+export type UsersTypeFind = {
+    id: string
+    img: string
+    fullName: string
+    followed: boolean,
+    status: string,
+    location: {
+        city: string,
+        country: string
+    }
+}
+export type UsersPageType = {
+    users: UsersTypeFind[]
+}
 
 export type StateType = {
     profilePage: ProfilePageType
@@ -41,12 +55,18 @@ export type StoreType = {
     dispatch: (action: ActionsType)=>void
 }
 
-export type ActionsType = AddPostActionType | UpdateNewTextActionType | UpdateNewMessageBody | sendMessageCreatorType
+export type ActionsType = AddPostActionType | UpdateNewTextActionType | UpdateNewMessageBody | sendMessageCreatorType|
+    FollowACType| UnFollowACType | SetUsersACType
+
 
 export type AddPostActionType = ReturnType<typeof addPostAC>
 export type UpdateNewMessageBody = ReturnType<typeof updateNewMessageBodyCreator>
 export type UpdateNewTextActionType = ReturnType<typeof updateNewPostTextCreator>
 export type sendMessageCreatorType = ReturnType<typeof sendMessageCreator>
+export type FollowACType = ReturnType<typeof followAC>
+export type UnFollowACType = ReturnType<typeof unFollowAC>
+export type SetUsersACType = ReturnType<typeof setUsersAC>
+
 
 export const store: StoreType = {
     _state: {
@@ -128,4 +148,23 @@ export const updateNewMessageBodyCreator = (text: string)  => {
     } as const
 }
 
+export const followAC = (userId: string) => {
+    return {
+        type: "FOLLOW",
+        userId: userId
+    } as const
+}
 
+export const unFollowAC = (userId: string) => {
+    return {
+        type: "UNFOLLOW",
+        userId: userId
+    } as const
+}
+
+export const setUsersAC = (users: UsersPageType) => {
+    return {
+        type: "SET-USERS",
+        users: users
+    } as const
+}
