@@ -25,14 +25,14 @@ export type ProfilePageType = {
 
 export type UsersTypeFind = {
     id: string
-    img: string
-    fullName: string
+    photos: {
+        small: string,
+        large: string
+    }
+    name: string
     followed: boolean,
     status: string,
-    location: {
-        city: string,
-        country: string
-    }
+
 }
 export type UsersPageType = {
     users: UsersTypeFind[]
@@ -165,6 +165,6 @@ export const unFollowAC = (userId: string) => {
 export const setUsersAC = (users: UsersPageType) => {
     return {
         type: "SET-USERS",
-        users: users
+        users
     } as const
 }

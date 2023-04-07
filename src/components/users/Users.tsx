@@ -1,11 +1,25 @@
 import React from "react";
-import {followAC, setUsersAC, unFollowAC, UsersPageType, UsersTypeFind} from "../../redux/state";
+import { UsersPageType, UsersTypeFind} from "../../redux/state";
 import styles from "./users.module.css"
+import axios from "axios";
+import { UsersContainerProps} from "./UsersConainer";
 type UsersType = {
     users: UsersTypeFind[]
+    setUsers: (users: UsersTypeFind[]) => void
+    follow: (users: UsersTypeFind[]) => void
+    unFollow: (users: UsersTypeFind[]) => void
 }
 
-export const Users = (props: UsersPageType) => {
+export const Users = (props: UsersContainerProps) => {
+
+    if(props.users.length === 0){
+
+        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
+            console.log(response)
+            props.setUsers(response.data.items)
+        })
+
+    }
 
     return (
        <div>
@@ -15,22 +29,19 @@ export const Users = (props: UsersPageType) => {
                        <div>
                   <span>
                       <div>
-                        <img src={u.img} className={styles.userPhoto}/>
+                        <img src={u.photos.small} className={styles.userPhoto}/>
                       </div>
                       <div>
-                        {u.followed? <button onClick={()=>followAC(u.id)}>unfollowed</button > : <button onClick={()=>unFollowAC(u.id)}>followed</button>}
+                        {u.followed? <button onClick={()=>props.unFollow(u.id)}>unfollowed</button > : <button onClick={()=>props.follow(u.id)}>followed</button>}
                       </div>
 
                   </span>
                            <span>
                       <span>
-                          <div>{u.fullName}</div>
+                          <div>{u.name}</div>
                           <div>{u.status}</div>
                       </span>
-                      <span>
-                          <div>{u.location.city}</div>
-                          <div>{u.location.country}</div>
-                      </span>
+
                   </span>
                        </div>
                    )

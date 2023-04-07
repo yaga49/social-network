@@ -7,6 +7,8 @@ import {Dispatch} from "redux";
 import {followAC, setUsersAC, unFollowAC, UsersPageType, UsersTypeFind} from "../../redux/state";
 
 
+export type UsersContainerProps = ReturnType<typeof mapStateToProps>&ReturnType<typeof mapDispatchToProps>
+
 const mapStateToProps = (state: AppStateType) => {
   return {
     users: state.usersReducer.users,
