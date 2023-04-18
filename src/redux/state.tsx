@@ -35,7 +35,10 @@ export type UsersTypeFind = {
 
 }
 export type UsersPageType = {
-    users: UsersTypeFind[]
+    users: UsersTypeFind[],
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
 }
 
 export type StateType = {
@@ -56,7 +59,7 @@ export type StoreType = {
 }
 
 export type ActionsType = AddPostActionType | UpdateNewTextActionType | UpdateNewMessageBody | sendMessageCreatorType|
-    FollowACType| UnFollowACType | SetUsersACType
+    FollowACType| UnFollowACType | SetUsersACType | SetCurrentPageACType | SetTotalCountACType
 
 
 export type AddPostActionType = ReturnType<typeof addPostAC>
@@ -66,6 +69,9 @@ export type sendMessageCreatorType = ReturnType<typeof sendMessageCreator>
 export type FollowACType = ReturnType<typeof followAC>
 export type UnFollowACType = ReturnType<typeof unFollowAC>
 export type SetUsersACType = ReturnType<typeof setUsersAC>
+export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
+export type SetTotalCountACType = ReturnType<typeof setTotalCountAC>
+
 
 
 export const store: StoreType = {
@@ -167,4 +173,19 @@ export const setUsersAC = (users: UsersPageType) => {
         type: "SET-USERS",
         users
     } as const
+}
+
+export const setCurrentPageAC = (currentPage: number)=>{
+    return {
+        type: "SET-CURRENT-PAGE",
+        currentPage
+    } as const
+
+}
+export const setTotalCountAC = (totalCount: number)=>{
+    return {
+        type: "SET-TOTAL-COUNT",
+        totalCount
+    } as const
+
 }

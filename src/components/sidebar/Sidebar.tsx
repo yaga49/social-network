@@ -20,6 +20,7 @@ export function Sidebar() {
     return(
         <nav className={s.sidebar}>
             <SidebarItem url={"/profile"} name={"profile"}/>
+            <SidebarItem url={"/users"} name={"users"}/>
             <SidebarItem url={"/dialogs"} name={"messages"}/>
             <SidebarItem url={"/music"} name={"music"}/>
             <SidebarItem url={"/setting"} name={"setting"}/>

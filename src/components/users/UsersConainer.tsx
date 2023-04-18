@@ -4,7 +4,15 @@ import {Dialogs} from "../dialogs/Dialogs";
 import {Users} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
 import {Dispatch} from "redux";
-import {followAC, setUsersAC, unFollowAC, UsersPageType, UsersTypeFind} from "../../redux/state";
+import {
+  followAC,
+  setCurrentPageAC,
+  setTotalCountAC,
+  setUsersAC,
+  unFollowAC,
+  UsersPageType,
+  UsersTypeFind
+} from "../../redux/state";
 
 
 export type UsersContainerProps = ReturnType<typeof mapStateToProps>&ReturnType<typeof mapDispatchToProps>
@@ -12,7 +20,9 @@ export type UsersContainerProps = ReturnType<typeof mapStateToProps>&ReturnType<
 const mapStateToProps = (state: AppStateType) => {
   return {
     users: state.usersReducer.users,
-
+    pageSize: state.usersReducer.pageSize,
+    totalUsersCount: state.usersReducer.totalUsersCount,
+    currentPage: state.usersReducer.currentPage
   }
 }
 
@@ -26,6 +36,12 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     },
     setUsers: (users: UsersPageType) =>{
       dispatch(setUsersAC(users))
+    },
+    setCurrentPage: (currentPage: number) =>{
+      dispatch(setCurrentPageAC(currentPage))
+    },
+    setTotalCount: (totalCount: number) =>{
+      dispatch(setTotalCountAC(totalCount))
     }
   }
 }

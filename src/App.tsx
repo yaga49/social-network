@@ -24,18 +24,8 @@ function App() {
                 <div className={"content-wrapper"}>
                     <Route path="/profile" render={() => <ProfileContainer/>}/>
 
+                    <Route path="/dialogs" render={() => <DialogsContainer/>}/>
 
-                    <Route path="/dialogs" render={() =>
-                        // <Dialogs
-                        //     messagePost={props.state.dialogPage.messagesUsers}
-                        //     users={props.state.dialogPage.users}
-                        //     messagesUsers={props.state.dialogPage.messagesUsers}
-                        //     dispatch={props.dispatch}
-                        //     newMessageBody = {props.state.dialogPage.newMessageBody}
-                        //     // addPost={props.addPost}
-                        // />
-                        <DialogsContainer/>
-                    }/>
                     <Route path="/users" render={() => <UsersContainer/>}/>
                 </div>
 
