@@ -1,56 +1,65 @@
 import React from 'react';
 
-import {Profile} from "../Profile";
-import {ContainerType} from "../../dialogs/DialogsContainer";
-import {ActionsType, addPostAC, StateType, StoreType, updateNewPostTextCreator} from "../../../redux/state";
+
+import {addPostAC, setUserProfileAC, updateNewPostTextCreator} from "../../../redux/state";
 import {connect} from "react-redux";
-import {Dialogs} from "../../dialogs/Dialogs";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
+import {Profile} from "../Profile";
+import axios from "axios";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 
-export type MessagesPropsType = {
-    // messagePost: Array<MessagesType>
-    // // addPost: (PostMessage: string) => void
-    // newPostText: string
-    // // updateNewPostText: (newText: string) => void
-    // dispatch: (action: AddPostActionType | UpdateNewTextActionType) => void
-    store : StoreType
-}
 
 
-// export function ProfileContainer(props: ContainerType) {
-//
-//     const addPost = (text: string) => {
-//         // props.addPost(newPostRef.current ? newPostRef.current.value : "----")
-//         // props.dispatch({type: "ADD-POST", PostMessage: newPostRef.current ? newPostRef.current.value : "----"})
-//         let action = addPostAC(text)
-//         props.store.dispatch(action)
-//     }
-//
-//     const onPostChange = (text: string) => {
-//         // props.updateNewPostText(newPostRef.current ? newPostRef.current.value : "----")
-//         let action = updateNewPostTextCreator(text)
-//         props.store.dispatch(action)
-//     }
-//     return <Profile addPostAC={addPost} updateNewPostTextCreator={onPostChange}
-//                     messagePost={props.store._state.profilePage.messages}
-//                     newPostText={props.store._state.profilePage.newPostText}
-//     />
-// }
 type MSTPType = {
     messagePost:any[]
     newPostText:string
+    profile: string | null
+}
+
+type PathParamsType = {
+    userId: any
+}
+
+
+export type ProfileContainerPropsType = ReturnType<typeof mapStateToProps> & ReturnType<typeof mapDispatchToProps>
+
+type PropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
+
+export class ProfileContainers extends React.Component<PropsType, any>{
+
+    componentDidMount() {
+        const userId = this.props.match.params.userId
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/`+ userId).then(response => {
+            console.log(response)
+            this.props.setUserProfile(response.data)
+
+        })
+    }
+
+    render() {
+        return<>
+            <Profile
+                messagePost={this.props.messagePost}
+                newPostText={this.props.newPostText}
+                addPostAC={this.props.addPostAC}
+                updateNewPostTextCreator={this.props.updateNewPostTextCreator}
+                profile={this.props.profile}
+            />
+        </>
+
+    }
+
 }
 
 
 const mapStateToProps = (state: AppStateType):MSTPType => {
   return{
-      // messagePost: state.profilePage.messages,
-      // newPostText: state.profilePage.newPostText,
+
       messagePost: state.profileReducer.messages,
       newPostText: state.profileReducer.newPostText,
-
+      profile: state.profileReducer.profile
   }
 }
 
@@ -58,6 +67,7 @@ const mapStateToProps = (state: AppStateType):MSTPType => {
 type MDTPType = {
     addPostAC: (text: string) => void
     updateNewPostTextCreator: (text: string) => void
+    setUserProfile: (profile: any)=>void
 }
 const mapDispatchToProps = (dispatch: Dispatch):MDTPType => {
   return{
@@ -68,8 +78,13 @@ const mapDispatchToProps = (dispatch: Dispatch):MDTPType => {
       updateNewPostTextCreator: (text: string)=>{
           let action = updateNewPostTextCreator(text)
           dispatch(action)
+      },
+      setUserProfile: (profile: any)=>{
+          dispatch(setUserProfileAC(profile))
       }
   }
 }
 
-export const ProfileContainer = connect(mapStateToProps,mapDispatchToProps)(Profile)
+
+const WithUrlDataContainerComponent = withRouter(ProfileContainers)
+export const ProfileContainer = connect(mapStateToProps,mapDispatchToProps)(WithUrlDataContainerComponent)

@@ -1,9 +1,6 @@
-import {ActionsType, dialogPageType, StateType, store, StoreType} from "./state";
+import {ActionsType, dialogPageType} from "./state";
 
-type DialogReducerType = {
-    dialog: dialogPageType
-    _onChange: () => void
-}
+
 
 let initialState = {
     users: [
@@ -29,7 +26,7 @@ export const dialogReducer = (state: dialogPageType = initialState, action: Acti
                 ...state,
                 newMessageBody: action.body
             }
-            store._onChange()
+
             return stateCopy
         }
         case "SEND-MESSAGE": {
@@ -40,7 +37,6 @@ export const dialogReducer = (state: dialogPageType = initialState, action: Acti
                 messagesUsers: [...state.messagesUsers, {id: "4", messages: action.body}]
             }
 
-            store._onChange()
             return stateCopy
         }
         default : {

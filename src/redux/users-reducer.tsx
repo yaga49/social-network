@@ -1,4 +1,4 @@
-import {ActionsType, dialogPageType, ProfilePageType, StateType, store, UsersPageType, UsersTypeFind} from "./state";
+import {ActionsType, dialogPageType, ProfilePageType, UsersPageType, UsersTypeFind} from "./state";
 
 type ProfileReducerType = {
     profile: ProfilePageType
@@ -8,7 +8,7 @@ type ProfileReducerType = {
 let initialState: UsersPageType = {
     users: [],
     pageSize: 5,
-    totalUsersCount: 1,
+    totalUsersCount: 0,
     currentPage: 1,
     isFetching: true
 }

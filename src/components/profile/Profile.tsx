@@ -2,6 +2,7 @@ import React, {RefObject} from 'react';
 import profile from './Profile.module.css'
 import {MessagesType, Post} from "./post/Post";
 import {addPostAC, AddPostActionType, updateNewPostTextCreator, UpdateNewTextActionType} from "../../redux/state";
+import {Preloader} from "../common/Preloader";
 
 //
 // export type MessagesPropsType = {
@@ -18,6 +19,7 @@ export type MessagesPropsType = {
     // updateNewPostText: (newText: string) => void
     addPostAC: (text: string)=>void
     updateNewPostTextCreator: (text: string)=>void
+    profile: any
 }
 
 
@@ -38,11 +40,18 @@ export function Profile(props: MessagesPropsType) {
         let action = props.updateNewPostTextCreator(text)
 
     }
+
+    if (!props.profile){
+        return <Preloader/>
+    }
     return (
         <div className={profile.content}>
             <div>
                 <img
                     src="https://www.slidebackground.com/uploads/rainbow/color-themes-rainbow-desktop-background-.jpg"/>
+            </div>
+            <div>
+                <img src={props.profile.photos.large}/>
             </div>
             <div className={profile.MyPost}>
                 <textarea ref={newPostRef} onChange={onPostChange} value={props.newPostText}/>

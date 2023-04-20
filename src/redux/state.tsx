@@ -21,6 +21,7 @@ export type MessageType = {
 export type ProfilePageType = {
     messages: MessageType[]
     newPostText: string
+    profile: null | string
 }
 
 export type UsersTypeFind = {
@@ -60,7 +61,8 @@ export type StoreType = {
 }
 
 export type ActionsType = AddPostActionType | UpdateNewTextActionType | UpdateNewMessageBody | sendMessageCreatorType|
-    FollowACType| UnFollowACType | SetUsersACType | SetCurrentPageACType | SetTotalCountACType | toggleIsFetchingACType
+    FollowACType| UnFollowACType | SetUsersACType | SetCurrentPageACType | SetTotalCountACType | toggleIsFetchingACType|
+    setUserProfileACType
 
 
 export type AddPostActionType = ReturnType<typeof addPostAC>
@@ -73,61 +75,62 @@ export type SetUsersACType = ReturnType<typeof setUsersAC>
 export type SetCurrentPageACType = ReturnType<typeof setCurrentPageAC>
 export type SetTotalCountACType = ReturnType<typeof setTotalCountAC>
 export type toggleIsFetchingACType = ReturnType<typeof toggleIsFetchingAC>
+export type setUserProfileACType = ReturnType<typeof setUserProfileAC>
 
 
 
-export const store: StoreType = {
-    _state: {
-        profilePage: {
-            messages: [
-                {id: "1", messages: "About text"},
-                {id: "2", messages: "first post"}
-            ],
-            newPostText: "bla-bla.com",
-        },
-        dialogPage: {
-
-            users: [
-                {id: "1", name: "user_1"},
-                {id: "2", name: "user_2"},
-                {id: "3", name: "user_3"}
-            ],
-            messagesUsers: [
-                {id: "1", messages: "about_1"},
-                {id: "2", messages: "about_1"},
-                {id: "3", messages: "about_1"}
-            ],
-            newMessageBody : ""
-        },
-
-    },
-    _onChange ()  {
-
-    },
-    getState(){
-        return this._state
-    },
-    // addPost(PostMessage) {
-    //     const newPost = {
-    //         id: "3",
-    //         messages: PostMessage
-    //     }
-    //     this._state.profilePage.messages.push(newPost)
-    //     this._state.profilePage.newPostText = ""
-    //     this._onChange()
-    // },
-    // updateNewPostText (newText){
-    //     this._state.profilePage.newPostText = newText
-    //     this._onChange()
-    // },
-    subscribe (observer){
-        this._onChange = observer
-    },
-    dispatch(action){
-        profileReducer(this._state.profilePage, action)
-        dialogReducer(this._state.dialogPage, action)
-    }
-}
+// export const store: StoreType = {
+//     _state: {
+//         profilePage: {
+//             messages: [
+//                 {id: "1", messages: "About text"},
+//                 {id: "2", messages: "first post"}
+//             ],
+//             newPostText: "bla-bla.com",
+//         },
+//         dialogPage: {
+//
+//             users: [
+//                 {id: "1", name: "user_1"},
+//                 {id: "2", name: "user_2"},
+//                 {id: "3", name: "user_3"}
+//             ],
+//             messagesUsers: [
+//                 {id: "1", messages: "about_1"},
+//                 {id: "2", messages: "about_1"},
+//                 {id: "3", messages: "about_1"}
+//             ],
+//             newMessageBody : ""
+//         },
+//
+//     },
+//     _onChange ()  {
+//
+//     },
+//     getState(){
+//         return this._state
+//     },
+//     // addPost(PostMessage) {
+//     //     const newPost = {
+//     //         id: "3",
+//     //         messages: PostMessage
+//     //     }
+//     //     this._state.profilePage.messages.push(newPost)
+//     //     this._state.profilePage.newPostText = ""
+//     //     this._onChange()
+//     // },
+//     // updateNewPostText (newText){
+//     //     this._state.profilePage.newPostText = newText
+//     //     this._onChange()
+//     // },
+//     subscribe (observer){
+//         this._onChange = observer
+//     },
+//     dispatch(action){
+//         profileReducer(this._state.profilePage, action)
+//         dialogReducer(this._state.dialogPage, action)
+//     }
+// }
 
 
 export const updateNewPostTextCreator = (text: string)  => {
@@ -143,6 +146,14 @@ export const addPostAC = (text: string)  => {
         PostMessage: text
     } as const
 }
+
+export const setUserProfileAC = (body: any)  => {
+    return {
+        type: "SET-USER-PROFILE",
+        userProfile: body
+    } as const
+}
+
 export const sendMessageCreator = (text: string)  => {
     return {
         type: "SEND-MESSAGE",

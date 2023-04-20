@@ -2,31 +2,20 @@ import React, {FormEvent} from "react";
 import s from "./Dialogs.module.css"
 import {NavLink} from "react-router-dom";
 
-import {MessagesType} from "../profile/post/Post";
+
 import {MessagesUsersType, UserType} from "../../index";
 import {
-    ActionsType,
-    AddPostActionType,
-    sendMessageCreator,
+
     updateNewMessageBodyCreator,
-    UpdateNewTextActionType
+
 } from "../../redux/state";
 
 export type DialogsItemType = {
     id: string
     name: string
 }
-type MessageCompType = {
-    messages: string
-}
-// type DialogPropsType = {
-//     messagePost: Array<MessagesType>
-//     users: UserType[]
-//     messagesUsers: MessagesUsersType[]
-//     // addPost: (PostMessage: string)=>void
-//     dispatch: (action: ActionsType) => void
-//     newMessageBody: string
-// }
+
+
 
 type DialogPropsType = {
     sendMessageCreator: (text: string)=>void
